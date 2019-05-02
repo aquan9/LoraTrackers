@@ -148,7 +148,7 @@ typedef unsigned char byte;
 
 static const int CHANNEL = 0;
 
-char message[256];
+char message[1024];
 
 bool sx1272 = true;
 
@@ -393,7 +393,7 @@ static void configPower (int8_t pw) {
 
 
 static void writeBuf(byte addr, byte *value, byte len) {                                                       
-    unsigned char spibuf[256];                                                                          
+    unsigned char spibuf[1024];                                                                          
     spibuf[0] = addr | 0x80;                                                                            
     for (int i = 0; i < len; i++) {                                                                         
         spibuf[i + 1] = value[i];                                                                       
@@ -456,9 +456,11 @@ int main (int argc, char *argv[]) {
         if (argc > 2)
             strncpy((char *)hello, argv[2], sizeof(hello));
 
-        while(1) {
+	int counter = 0;
+        while(counter < 3) {
             txlora(hello, strlen((char *)hello));
             delay(5000);
+	    counter += 1;
         }
     } else {
 
