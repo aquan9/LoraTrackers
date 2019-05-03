@@ -21,8 +21,14 @@ def main():
     if(node_mode == "sender"):
         while(1):
             gps_info = getGPS()
+            gps_info = str(sys.argv[1]) + ": " + gps_info
             print(gps_info)
             subprocess.call(["sudo", "./dragino_lora_app", "sender", gps_info])
+
+    if(node_mode == "reciever"):
+        while(1):
+            output = subprocess.check_output(["sudo", "./dragino_lora_app", "rec"])
+            print(output)
 
     
 
