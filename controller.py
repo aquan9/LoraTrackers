@@ -28,7 +28,32 @@ def main():
     if(node_mode == "reciever"):
         while(1):
             output = subprocess.check_output(["sudo", "./dragino_lora_app", "rec"])
-            print(output)
+            longitude = 0
+            latitude = 0
+            time = 0
+            node = 0
+            node_tracking = {}
+            output = output.split("\n")
+            for line in output:
+                if("longitude" in line):
+                    line = line.split(" ")
+                    node = line[1]
+                    latitude = line[2]
+                    longitude = line[3]
+                    time = line[4]
+                    print(line)
+                    print(node)
+                    print(latitude)
+                    print(longitude)
+                    print(time)
+                    status = [latitude, longitude, time]
+                    node_tracking[node] = status
+                    print node_tracking
+                    with open("locations.txt", 'w') as f:
+                        for key in node_tracking:
+                            f.write(str(key) + str(node_tracking[key]))
+
+
 
     
 
