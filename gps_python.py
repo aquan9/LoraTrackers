@@ -22,7 +22,7 @@ def getGPS():
             actual_value = True
 
         if(actual_value == True):
-            return("latitude: " + str(latitude) + " longitude: " + str(longitude) + " time: " + str(times))
+            return("latitude:" + str(latitude) + " longitude:" + str(longitude) + " time:" + str(times))
 
 if __name__ == "__main__":
     print(getGPS())
