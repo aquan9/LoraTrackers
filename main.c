@@ -329,7 +329,7 @@ boolean receive(char *payload) {
     return true;
 }
 
-void receivepacket() {
+int receivepacket() {
 
     long int SNR;
     int rssicorr;
@@ -362,10 +362,11 @@ void receivepacket() {
             printf("Length: %i", (int)receivedbytes);
             printf("\n");
             printf("Payload: %s\n", message);
-
+	    return 1;
         } // received a message
 
     } // dio0=1
+    return 0;
 }
 
 static void configPower (int8_t pw) {
@@ -471,7 +472,9 @@ int main (int argc, char *argv[]) {
         printf("Listening at SF%i on %.6lf Mhz.\n", sf,(double)freq/1000000);
         printf("------------------\n");
         while(1) {
-            receivepacket(); 
+            int value = receivepacket(); 
+	    if(value == 1)
+		    exit(EXIT_SUCCESS);
             delay(1);
         }
 
